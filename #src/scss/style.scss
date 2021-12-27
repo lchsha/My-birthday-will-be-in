@@ -1,0 +1,291 @@
+@mixin font($font_name, $file_name, $weight, $style) {
+
+@font-face {
+	font-family: $font_name;
+	font-display: swap;
+	src: url("../fonts/#{$file_name}.woff") format("woff"), url("../fonts/#{$file_name}.woff2") format("woff2");
+	font-weight: #{$weight};
+	font-style: #{$style};
+	}
+}
+
+@import "normalize";
+@import "fonts";
+@import "mixins";
+
+*{
+	webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+html{
+	 overflow: hidden;
+    width:100%;
+	 height: 100%;
+}
+
+ ::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #e0e0e0;
+	 border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 6px rgba(128,185,241,1);
+	  border-radius: 50px;
+}
+
+body{
+	transition: all 0.2s ease 0s;
+	position: relative;
+	color: rgb(48, 48, 48);
+	font-family: 'YakumoPreschoolHand';
+	min-height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1000;
+   overflow-y:auto;
+   -webkit-overflow-scrolling: touch;  
+	background: linear-gradient(270deg, rgba(21,205,209,1), rgba(128,185,241,1), rgba(174,176,255,1));
+	background-size: 400% 400%;
+	animation: gradient 30s ease infinite;
+}
+
+@keyframes gradient { 
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+.wrapper {
+	max-width: 1150px;
+	margin: 0 auto;
+	padding: 0 15px;
+	display: flex;
+	width: 100%;
+}
+
+.timer {
+		width: 100%;
+		padding: 150px 0px 100px 0px;
+		height: 100%;
+		@media(max-width: 767.99px){
+			padding: 70px 0px 50px 0px;
+		}
+		h1{
+			margin-bottom: 100px;
+			text-align: center;
+			font-size: 40px;
+			color: #fff;
+			line-height: 1.2;
+			text-shadow: 1px 1px 2px red;
+			@media(max-width: 767.99px){
+				font-size: 35px;
+				margin-bottom: 50px;
+			}
+		}
+
+		&__wereborn{
+			font-size: 30px;
+			margin: 0px 0px 20px 0px;
+			color: #fff;
+			line-height: 1.2;
+			text-shadow: 1px 1px 2px red;
+			text-align: center;
+		}
+	
+		&__select-wrapper{
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin: 0px 0px 100px 0px;
+			@media(max-width: 767.99px){
+				margin: 0px 0px 50px 0px;
+			}
+		}
+
+		&__select {
+			max-width: 600px;
+			display: flex;
+			justify-content: center;
+			margin: 0px 0px 50px 0px;
+		}
+
+		&__btn{
+			font-size: 25px;
+			background-color: rgb(223, 86, 86);
+			color: #fff;
+			border-radius: 30px;
+			padding: 5px 30px;
+			transition: all 0.2s ease 0s;
+			box-shadow: 0px 4px 2px 0px rgb(163, 39, 39);
+			&:active{
+				background-color: rgb(202, 71, 71);
+				transform: translate(0,2px);
+				box-shadow: 0px 0px 2px 0px rgb(163, 39, 39);
+			}
+		}
+
+		// .timer__body
+
+		&__body {
+			display: block;
+			&.hide{
+				display: none;
+			}
+		}
+
+		&__congrat{
+			display: none;
+			text-align: center;
+			
+			h2{
+				font-size: 80px;
+				line-height: 1.3;
+				letter-spacing: 10px;
+				color: #fff;
+				text-shadow: 1px 1px 2px red;
+				font-weight: 900;
+				transition: all 1s ease 0s;
+				opacity: 0;
+				@media(max-width: 767.99px){
+					font-size: 40px;
+				}
+			}
+			&.show{
+				display: block;
+				h2{
+					opacity: 1;
+				}
+			}
+		}
+}
+
+.select{
+	position: relative;
+	margin: 0 20px;
+
+	&_days{
+		width: 65px;
+		
+		font-weight: 500;
+	}
+
+	&_months{
+		width: 140px;
+	}
+
+	&.active{
+		.select__header{
+			span.fas{
+					transform: rotate(-180deg);
+			}
+		}
+	}
+
+	&__header{
+			cursor: pointer;
+			background-color: #fff;
+			padding: 2px 10px;
+			position: relative;
+			z-index: 5;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			border-radius: 3px;
+			min-height: 29px;
+			span.fas{
+				transition: all 0.2s ease 0s;
+			}
+	}
+
+	&__label{
+		font-size: 25px;
+	}
+
+	&__dropdown{
+		position: absolute;
+		top: 100%;
+		left: 0;
+		width: 100%;
+		background-color: rgb(221, 235, 235);
+		z-index: 1;
+		height: 0;
+		overflow: hidden;
+		overflow-y: scroll;
+		max-height: 260px;
+		transition: height .35s ease 0s;
+		border-radius: 5px;
+		&.active{
+			
+		}
+	}
+
+	&__items{
+		
+		li{
+			cursor: pointer;
+			font-size: 20px;
+			padding: 3px 10px;
+			transition: all 0.1s ease 0s;
+			&:hover{
+				background-color: darkorange;
+			}
+		}
+	}
+
+}
+
+.body-timer {
+		display: flex;
+		max-width: 900px;
+		margin: 0 auto;
+		font-size: 50px;
+		font-family: 'ChangaOne';
+		color: #fff;
+		text-shadow: 1px 1px 2px red;
+		&__element{
+			text-align: center;
+			font-size: 100px;
+			letter-spacing: 5px;
+			font-weight: 700;
+			flex: 0 0 25%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			span{
+				&:last-child{
+					font-family: 'YakumoPreschoolHand';
+					font-size: 20px;
+					margin: 20px 0px 0px 0px;
+				}
+			}
+		}
+		@media(max-width: 767.99px){
+			flex-direction: column;
+		}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
